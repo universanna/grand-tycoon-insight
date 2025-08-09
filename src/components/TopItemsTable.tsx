@@ -1,3 +1,4 @@
+import React, { useMemo, useState } from "react";
 import {
   Table,
   TableBody,
@@ -10,7 +11,6 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { generateMockData } from "@/data/mockData";
 import { MarketItem } from "@/types/market";
-import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 
 const formatNumber = (num: number): string => {
@@ -18,6 +18,32 @@ const formatNumber = (num: number): string => {
   if (num >= 1000) return `${(num / 1000).toFixed(1)}K`;
   return num.toString();
 };
+
+// Typed comparator function
+function compareBy<T extends keyof MarketItem>(
+  field: T,
+  direction: 'asc' | 'desc'
+) {
+  return (a: MarketItem, b: MarketItem): number => {
+    // Handle boolean members field explicitly
+    if (field === 'members') {
+      const aBool = a.members ? 1 : 0;
+      const bBool = b.members ? 1 : 0;
+      return direction === 'desc' ? bBool - aBool : aBool - bBool;
+    }
+
+    const aVal = a[field];
+    const bVal = b[field];
+    
+    if (typeof aVal === 'number' && typeof bVal === 'number') {
+      return direction === 'desc' ? bVal - aVal : aVal - bVal;
+    }
+    
+    return direction === 'desc' 
+      ? String(bVal).localeCompare(String(aVal))
+      : String(aVal).localeCompare(String(bVal));
+  };
+}
 
 const SortableHeader = ({ 
   children, 
@@ -41,7 +67,7 @@ const SortableHeader = ({
   </TableHead>
 );
 
-const ItemRow = ({ item }: { item: MarketItem }) => {
+const ItemRow = React.memo(({ item }: { item: MarketItem }) => {
   const isHighPerformance = item.performanceScore >= 7.5;
   const rowClass = "even:bg-muted/20 dark:even:bg-muted/5 hover:bg-muted/30";
 
@@ -92,7 +118,9 @@ const ItemRow = ({ item }: { item: MarketItem }) => {
       </TableCell>
     </TableRow>
   );
-};
+});
+
+ItemRow.displayName = 'ItemRow';
 
 export const TopItemsTable = () => {
   const [sortField, setSortField] = useState<keyof MarketItem>('performanceScore');
@@ -108,25 +136,7 @@ export const TopItemsTable = () => {
   
   const sortedItems = useMemo(() => {
     const items = [...filteredItems];
-    items.sort((a, b) => {
-      // Explicit boolean sorting for 'members'
-      if (sortField === 'members') {
-        const aBool = a.members ? 1 : 0;
-        const bBool = b.members ? 1 : 0;
-        return sortDirection === 'desc' ? bBool - aBool : aBool - bBool;
-      }
-
-      const aVal = a[sortField] as any;
-      const bVal = b[sortField] as any;
-      
-      if (typeof aVal === 'number' && typeof bVal === 'number') {
-        return sortDirection === 'desc' ? bVal - aVal : aVal - bVal;
-      }
-      
-      return sortDirection === 'desc' 
-        ? String(bVal).localeCompare(String(aVal))
-        : String(aVal).localeCompare(String(bVal));
-    });
+    items.sort(compareBy(sortField, sortDirection));
     return items;
   }, [filteredItems, sortField, sortDirection]);
 

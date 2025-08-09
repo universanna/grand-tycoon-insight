@@ -13,7 +13,6 @@ export interface MarketItem {
   profitMarginPercent: number;
   performanceScore: number;
   riskToReward: number;
-  smartPriceSignal?: boolean;
 }
 
 export interface MarketOpportunity {

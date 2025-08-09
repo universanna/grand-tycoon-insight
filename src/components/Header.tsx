@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "./ThemeToggle";
 import { Link } from "react-router-dom";
+import { toast } from "@/components/ui/sonner";
 
 export const Header = () => {
   return (
@@ -12,7 +13,11 @@ export const Header = () => {
           </Link>
         </div>
         <div className="flex items-center space-x-2">
-          	<Button variant="secondary" className="text-sm font-medium bg-muted/40 hover:bg-muted/60 border border-border/50 rounded-md focus-visible:ring-2 focus-visible:ring-accent/30">
+          <Button 
+            variant="secondary" 
+            className="text-sm font-medium bg-muted/40 hover:bg-muted/60 border border-border/50 rounded-md focus-visible:ring-2 focus-visible:ring-accent/30"
+            onClick={() => toast('Soon™')}
+          >
             Coffee?
           </Button>
           <ThemeToggle />

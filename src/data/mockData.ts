@@ -15,8 +15,7 @@ export const mockMarketData: MarketItem[] = [
     volatilityScore: 0.15,
     profitMarginPercent: 2.35,
     performanceScore: 8.7,
-    riskToReward: 0.064,
-    smartPriceSignal: true
+    riskToReward: 0.064
   },
   {
     id: "2",
@@ -164,10 +163,20 @@ export const mockMarketData: MarketItem[] = [
   }
 ];
 
-// Generate more mock data for the full table
+// Simple seeded random number generator for deterministic results
+function seededRandom(seed: number) {
+  let state = seed;
+  return () => {
+    state = (state * 1664525 + 1013904223) % Math.pow(2, 32);
+    return state / Math.pow(2, 32);
+  };
+}
+
+// Generate more mock data for the full table (deterministic)
 export const generateMockData = (count: number): MarketItem[] => {
   const baseItems = mockMarketData;
   const result = [...baseItems];
+  const rng = seededRandom(12345); // Fixed seed for consistency
   
   for (let i = baseItems.length; i < count; i++) {
     const baseItem = baseItems[i % baseItems.length];
@@ -175,12 +184,11 @@ export const generateMockData = (count: number): MarketItem[] => {
       ...baseItem,
       id: (i + 1).toString(),
       name: `${baseItem.name} ${i + 1}`,
-      buyPrice: Math.round(baseItem.buyPrice * (0.8 + Math.random() * 0.4)),
-      sellPrice: Math.round(baseItem.sellPrice * (0.8 + Math.random() * 0.4)),
-      performanceScore: Math.round((5 + Math.random() * 4) * 10) / 10,
-      liquidityScore: Math.round((0.3 + Math.random() * 0.7) * 100) / 100,
-      volatilityScore: Math.round((0.1 + Math.random() * 0.4) * 100) / 100,
-      smartPriceSignal: Math.random() > 0.7
+      buyPrice: Math.round(baseItem.buyPrice * (0.8 + rng() * 0.4)),
+      sellPrice: Math.round(baseItem.sellPrice * (0.8 + rng() * 0.4)),
+      performanceScore: Math.round((5 + rng() * 4) * 10) / 10,
+      liquidityScore: Math.round((0.3 + rng() * 0.7) * 100) / 100,
+      volatilityScore: Math.round((0.1 + rng() * 0.4) * 100) / 100
     });
   }
   
