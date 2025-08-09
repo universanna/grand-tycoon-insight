@@ -163,7 +163,7 @@ export const TopItemsTable = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {sortedItems.map((item, index) => (
+                {sortedItems.slice(0, 10).map((item, index) => (
                   <ItemRow key={item.id} item={item} index={index} />
                 ))}
               </TableBody>
