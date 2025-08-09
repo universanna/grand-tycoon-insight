@@ -22,21 +22,26 @@ const formatNumber = (num: number): string => {
 const SortableHeader = ({ 
   children, 
   onClick, 
-  sortable = true 
+  sortable = true,
+  active = false,
+  direction = 'none',
 }: { 
   children: React.ReactNode; 
   onClick?: () => void;
   sortable?: boolean;
+  active?: boolean;
+  direction?: 'asc' | 'desc' | 'none';
 }) => (
   <TableHead 
     className={`${sortable ? 'cursor-pointer hover:text-foreground' : ''} text-xs font-medium text-muted-foreground`}
     onClick={onClick}
+    aria-sort={active ? (direction === 'asc' ? 'ascending' : direction === 'desc' ? 'descending' : 'none') : 'none'}
   >
     {children}
   </TableHead>
 );
 
-const ItemRow = ({ item, index }: { item: MarketItem; index: number }) => {
+const ItemRow = ({ item }: { item: MarketItem }) => {
   const isHighPerformance = item.performanceScore >= 7.5;
   const rowClass = "even:bg-muted/20 dark:even:bg-muted/5 hover:bg-muted/30";
 
@@ -104,8 +109,15 @@ export const TopItemsTable = () => {
   const sortedItems = useMemo(() => {
     const items = [...filteredItems];
     items.sort((a, b) => {
-      const aVal = a[sortField];
-      const bVal = b[sortField];
+      // Explicit boolean sorting for 'members'
+      if (sortField === 'members') {
+        const aBool = a.members ? 1 : 0;
+        const bBool = b.members ? 1 : 0;
+        return sortDirection === 'desc' ? bBool - aBool : aBool - bBool;
+      }
+
+      const aVal = a[sortField] as any;
+      const bVal = b[sortField] as any;
       
       if (typeof aVal === 'number' && typeof bVal === 'number') {
         return sortDirection === 'desc' ? bVal - aVal : aVal - bVal;
@@ -131,7 +143,7 @@ export const TopItemsTable = () => {
     <section className="w-full py-8">
       <div className="container px-4">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-semibold">TOP OPPORTUNITIES</h2>
+          <h2 className="text-2xl font-semibold">TOP 10 OPPORTUNITIES</h2>
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input
@@ -148,47 +160,47 @@ export const TopItemsTable = () => {
             <Table>
               <TableHeader className="sticky top-0 bg-background border-b">
                 <TableRow>
-                  <SortableHeader onClick={() => handleSort('name')}>
+                  <SortableHeader onClick={() => handleSort('name')} active={sortField==='name'} direction={sortField==='name' ? sortDirection : 'none'}>
                     Item
                   </SortableHeader>
-                  <SortableHeader onClick={() => handleSort('members')}>
+                  <SortableHeader onClick={() => handleSort('members')} active={sortField==='members'} direction={sortField==='members' ? sortDirection : 'none'}>
                     Members
                   </SortableHeader>
-                  <SortableHeader onClick={() => handleSort('buyLimit')}>
+                  <SortableHeader onClick={() => handleSort('buyLimit')} active={sortField==='buyLimit'} direction={sortField==='buyLimit' ? sortDirection : 'none'}>
                     Buy Limit
                   </SortableHeader>
-                  <SortableHeader onClick={() => handleSort('buyPrice')}>
+                  <SortableHeader onClick={() => handleSort('buyPrice')} active={sortField==='buyPrice'} direction={sortField==='buyPrice' ? sortDirection : 'none'}>
                     Buy Price
                   </SortableHeader>
-                  <SortableHeader onClick={() => handleSort('sellPrice')}>
+                  <SortableHeader onClick={() => handleSort('sellPrice')} active={sortField==='sellPrice'} direction={sortField==='sellPrice' ? sortDirection : 'none'}>
                     Sell Price
                   </SortableHeader>
-                  <SortableHeader onClick={() => handleSort('marginPostTax')}>
+                  <SortableHeader onClick={() => handleSort('marginPostTax')} active={sortField==='marginPostTax'} direction={sortField==='marginPostTax' ? sortDirection : 'none'}>
                     Margin (Post-Tax)
                   </SortableHeader>
-                  <SortableHeader onClick={() => handleSort('dailyVolume')}>
+                  <SortableHeader onClick={() => handleSort('dailyVolume')} active={sortField==='dailyVolume'} direction={sortField==='dailyVolume' ? sortDirection : 'none'}>
                     Daily Volume
                   </SortableHeader>
-                  <SortableHeader onClick={() => handleSort('liquidityScore')}>
+                  <SortableHeader onClick={() => handleSort('liquidityScore')} active={sortField==='liquidityScore'} direction={sortField==='liquidityScore' ? sortDirection : 'none'}>
                     Liquidity Score
                   </SortableHeader>
-                  <SortableHeader onClick={() => handleSort('volatilityScore')}>
+                  <SortableHeader onClick={() => handleSort('volatilityScore')} active={sortField==='volatilityScore'} direction={sortField==='volatilityScore' ? sortDirection : 'none'}>
                     Volatility Score
                   </SortableHeader>
-                  <SortableHeader onClick={() => handleSort('profitMarginPercent')}>
+                  <SortableHeader onClick={() => handleSort('profitMarginPercent')} active={sortField==='profitMarginPercent'} direction={sortField==='profitMarginPercent' ? sortDirection : 'none'}>
                     Profit Margin %
                   </SortableHeader>
-                  <SortableHeader onClick={() => handleSort('performanceScore')}>
+                  <SortableHeader onClick={() => handleSort('performanceScore')} active={sortField==='performanceScore'} direction={sortField==='performanceScore' ? sortDirection : 'none'}>
                     Performance Score
                   </SortableHeader>
-                  <SortableHeader onClick={() => handleSort('riskToReward')}>
+                  <SortableHeader onClick={() => handleSort('riskToReward')} active={sortField==='riskToReward'} direction={sortField==='riskToReward' ? sortDirection : 'none'}>
                     R2R
                   </SortableHeader>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {sortedItems.slice(0, 10).map((item, index) => (
-                  <ItemRow key={item.id} item={item} index={index} />
+                {sortedItems.slice(0, 10).map((item) => (
+                  <ItemRow key={item.id} item={item} />
                 ))}
               </TableBody>
             </Table>
