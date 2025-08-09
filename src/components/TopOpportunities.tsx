@@ -66,12 +66,12 @@ const OpportunityCard = ({ item, rank }: { item: MarketItem; rank: number }) => 
 };
 
 export const TopOpportunities = () => {
-  const topItems = mockMarketData.slice(0, 10);
+  const topItems = mockMarketData.slice(0, 4);
 
   return (
     <section className="w-full py-8">
       <div className="container px-4">
-        <h2 className="text-2xl font-semibold mb-6">Top 10 Market Opportunities</h2>
+        <h2 className="text-2xl font-semibold mb-6">Top Scores</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {topItems.map((item, index) => (
             <OpportunityCard key={item.id} item={item} rank={index + 1} />
