@@ -8,8 +8,8 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Light mode - clean warm off-white theme */
-    --background: 30 10% 97%;
+    /* Light mode - soft anthracite theme */
+    --background: 220 8% 94%;
     --foreground: 220 15% 15%;
 
     --card: 30 10% 98%;
@@ -59,9 +59,9 @@ All colors MUST be HSL.
   }
 
   .dark {
-    /* Dark mode - deep charcoal and anthracite */
-    --background: 220 15% 8%;
-    --foreground: 0 0% 100%;
+    /* Dark mode - modern anthracite */
+    --background: 220 12% 12%;
+    --foreground: 220 8% 92%;
 
     --card: 220 15% 10%;
     --card-foreground: 0 0% 100%;
