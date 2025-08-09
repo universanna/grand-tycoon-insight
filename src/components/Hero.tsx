@@ -14,9 +14,6 @@ export const Hero = () => {
         }}
       />
       <div className="text-center space-y-4 w-full max-w-md px-4">
-        <h1 className="text-2xl md:text-3xl font-semibold text-foreground">
-          Do you feel lucky, punk?
-        </h1>
         <div className="relative group w-full">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
           <div
