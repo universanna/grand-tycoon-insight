@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { generateMockData } from "@/data/mockData";
 import { MarketItem } from "@/types/market";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 
 const formatNumber = (num: number): string => {
@@ -92,21 +92,31 @@ const ItemRow = ({ item, index }: { item: MarketItem; index: number }) => {
 export const TopItemsTable = () => {
   const [sortField, setSortField] = useState<keyof MarketItem>('performanceScore');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
+  const [query, setQuery] = useState('');
   
-  const allItems = generateMockData(30);
+  const allItems = useMemo(() => generateMockData(30), []);
+  const filteredItems = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return allItems;
+    return allItems.filter((i) => i.name.toLowerCase().includes(q));
+  }, [allItems, query]);
   
-  const sortedItems = [...allItems].sort((a, b) => {
-    const aVal = a[sortField];
-    const bVal = b[sortField];
-    
-    if (typeof aVal === 'number' && typeof bVal === 'number') {
-      return sortDirection === 'desc' ? bVal - aVal : aVal - bVal;
-    }
-    
-    return sortDirection === 'desc' 
-      ? String(bVal).localeCompare(String(aVal))
-      : String(aVal).localeCompare(String(bVal));
-  });
+  const sortedItems = useMemo(() => {
+    const items = [...filteredItems];
+    items.sort((a, b) => {
+      const aVal = a[sortField];
+      const bVal = b[sortField];
+      
+      if (typeof aVal === 'number' && typeof bVal === 'number') {
+        return sortDirection === 'desc' ? bVal - aVal : aVal - bVal;
+      }
+      
+      return sortDirection === 'desc' 
+        ? String(bVal).localeCompare(String(aVal))
+        : String(aVal).localeCompare(String(bVal));
+    });
+    return items;
+  }, [filteredItems, sortField, sortDirection]);
 
   const handleSort = (field: keyof MarketItem) => {
     if (sortField === field) {
@@ -126,6 +136,9 @@ export const TopItemsTable = () => {
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input
               placeholder="Search items..."
+              aria-label="Search items"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
               className="pl-10 w-64 bg-background/80 backdrop-blur border border-border rounded-md focus-visible:ring-2 focus-visible:ring-accent/30"
             />
           </div>
