@@ -9,7 +9,7 @@ All colors MUST be HSL.
 @layer base {
   :root {
     /* Light mode - soft anthracite theme */
-    --background: 220 8% 94%;
+    --background: 40 12% 96%;
     --foreground: 220 15% 15%;
 
     --card: 30 10% 98%;
