@@ -8,15 +8,15 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Light mode - warm beige theme */
-    --background: 44 30% 96%;
-    --foreground: 148 85% 8%;
+    /* Light mode - clean warm off-white theme */
+    --background: 30 10% 97%;
+    --foreground: 220 15% 15%;
 
-    --card: 44 30% 96%;
-    --card-foreground: 148 85% 8%;
+    --card: 30 10% 98%;
+    --card-foreground: 220 15% 15%;
 
-    --popover: 44 30% 96%;
-    --popover-foreground: 148 85% 8%;
+    --popover: 30 10% 98%;
+    --popover-foreground: 220 15% 15%;
 
     --primary: 148 85% 8%;
     --primary-foreground: 0 0% 100%;
