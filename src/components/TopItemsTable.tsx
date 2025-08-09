@@ -27,7 +27,7 @@ const SortableHeader = ({
   sortable?: boolean;
 }) => (
   <TableHead 
-    className={`${sortable ? 'cursor-pointer hover:text-foreground' : ''} text-xs font-semibold`}
+    className={`${sortable ? 'cursor-pointer hover:text-foreground' : ''} text-xs font-medium text-muted-foreground`}
     onClick={onClick}
   >
     {children}
@@ -36,12 +36,10 @@ const SortableHeader = ({
 
 const ItemRow = ({ item, index }: { item: MarketItem; index: number }) => {
   const isHighPerformance = item.performanceScore >= 7.5;
-  const rowClass = isHighPerformance 
-    ? "hover:bg-emerald/5 dark:hover:bg-emerald/10" 
-    : "hover:bg-muted/50";
+  const rowClass = "even:bg-muted/20 dark:even:bg-muted/5 hover:bg-muted/30";
 
   return (
-    <TableRow className={`${rowClass} transition-colors`}>
+    <TableRow className={`${rowClass} transition-colors ${isHighPerformance ? 'border-l-2 border-emerald/40' : ''}`}>
       <TableCell className="font-medium sticky left-0 bg-background">
         <div className="flex items-center gap-2">
           <span className="text-lg">{item.icon}</span>
