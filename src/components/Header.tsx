@@ -11,8 +11,8 @@ export const Header = () => {
           </div>
         </div>
         <div className="flex items-center space-x-2">
-          <Button variant="secondary" className="text-sm font-medium">
-            DOES NOTHING
+          <Button variant="secondary" className="text-sm font-medium bg-muted/50 hover:bg-muted border border-border/50">
+            Coffee?
           </Button>
           <ThemeToggle />
         </div>
