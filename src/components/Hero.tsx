@@ -12,7 +12,11 @@ export const Hero = () => {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
           <Input 
             placeholder="Search items..." 
-            className="pl-10 bg-background/80 backdrop-blur"
+            className="pl-10 bg-background/80 backdrop-blur border-2 border-transparent bg-gradient-to-r from-emerald to-gold bg-clip-border p-[1px] rounded-md"
+            style={{
+              background: 'linear-gradient(to right, hsl(var(--emerald)), hsl(var(--gold))) border-box, hsl(var(--background)) padding-box',
+              border: '2px solid transparent'
+            }}
           />
         </div>
       </div>
