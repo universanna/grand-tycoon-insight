@@ -7,9 +7,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import { generateMockData } from "@/data/mockData";
 import { MarketItem } from "@/types/market";
 import { useState } from "react";
+import { Search } from "lucide-react";
 
 const formatNumber = (num: number): string => {
   if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`;
@@ -118,7 +120,16 @@ export const TopItemsTable = () => {
   return (
     <section className="w-full py-8">
       <div className="container px-4">
-        <h2 className="text-2xl font-semibold mb-6">TOP 10 ITEMS</h2>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-2xl font-semibold">TOP 10 ITEMS</h2>
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+            <Input
+              placeholder="Search items..."
+              className="pl-10 w-64 bg-background/80 backdrop-blur border border-border rounded-md focus-visible:ring-2 focus-visible:ring-accent/30"
+            />
+          </div>
+        </div>
         <div className="border rounded-lg overflow-hidden">
           <div className="max-h-[600px] overflow-auto">
             <Table>
