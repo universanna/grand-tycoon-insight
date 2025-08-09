@@ -118,7 +118,7 @@ export const TopItemsTable = () => {
   return (
     <section className="w-full py-8">
       <div className="container px-4">
-        <h2 className="text-2xl font-semibold mb-6">Top 30 Items</h2>
+        <h2 className="text-2xl font-semibold mb-6">TOP 10 ITEMS</h2>
         <div className="border rounded-lg overflow-hidden">
           <div className="max-h-[600px] overflow-auto">
             <Table>
