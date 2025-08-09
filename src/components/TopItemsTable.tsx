@@ -121,7 +121,7 @@ export const TopItemsTable = () => {
     <section className="w-full py-8">
       <div className="container px-4">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-semibold">TOP 10 ITEMS</h2>
+          <h2 className="text-2xl font-semibold">TOP OPPORTUNITES</h2>
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
             <Input
