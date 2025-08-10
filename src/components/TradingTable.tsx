@@ -139,41 +139,41 @@ export default function TradingTable() {
           {/* Sticky Header */}
           <thead className="sticky top-0 z-20">
             <tr className="border-b border-gray-700">
-              <th className="sticky left-0 z-30 bg-gray-900 text-left px-4 py-3 text-gray-300 font-medium min-w-[200px]">
+              <th className="sticky left-0 z-30 text-left px-4 py-3 text-gray-300 font-medium min-w-[200px]">
                 Item
               </th>
-              <th className="bg-gray-900 text-center px-4 py-3 text-gray-300 font-medium min-w-[100px]">
+              <th className="text-center px-4 py-3 text-gray-300 font-medium min-w-[100px]">
                 Members
               </th>
-              <th className="bg-gray-900 text-center px-4 py-3 text-gray-300 font-medium min-w-[120px]">
+              <th className="text-center px-4 py-3 text-gray-300 font-medium min-w-[120px]">
                 Buy Limit
               </th>
-              <th className="bg-gray-900 text-center px-4 py-3 text-gray-300 font-medium min-w-[100px]">
+              <th className="text-center px-4 py-3 text-gray-300 font-medium min-w-[100px]">
                 Buy Price
               </th>
-              <th className="bg-gray-900 text-center px-4 py-3 text-gray-300 font-medium min-w-[100px]">
+              <th className="text-center px-4 py-3 text-gray-300 font-medium min-w-[100px]">
                 Sell Price
               </th>
-              <th className="bg-gray-900 text-center px-4 py-3 text-gray-300 font-medium min-w-[120px]">
+              <th className="text-center px-4 py-3 text-gray-300 font-medium min-w-[120px]">
                 Margin (Post-Tax)
               </th>
-              <th className="bg-gray-900 text-center px-4 py-3 text-gray-300 font-medium min-w-[140px]">
+              <th className="text-center px-4 py-3 text-gray-300 font-medium min-w-[140px]">
                 Daily Volume
               </th>
-              <th className="bg-gray-900 text-center px-4 py-3 text-gray-300 font-medium min-w-[120px]">
+              <th className="text-center px-4 py-3 text-gray-300 font-medium min-w-[120px]">
                 Liquidity Score
               </th>
-              <th className="bg-gray-900 text-center px-4 py-3 text-gray-300 font-medium min-w-[120px]">
+              <th className="text-center px-4 py-3 text-gray-300 font-medium min-w-[120px]">
                 Volatility Score
               </th>
             </tr>
           </thead>
-          
+
           {/* Table Body */}
           <tbody>
             {tableData.map((row, index) => (
-              <tr 
-                key={row.item} 
+              <tr
+                key={row.item}
                 className={`border-b border-gray-800 hover:bg-gray-800/50 ${
                   index % 2 === 0 ? 'bg-gray-900/50' : 'bg-gray-900/20'
                 }`}
@@ -185,35 +185,35 @@ export default function TradingTable() {
                     <span className="text-gray-200 font-medium">{row.item}</span>
                   </div>
                 </td>
-                
+
                 <td className="text-center px-4 py-3 text-gray-300">
                   {row.members}
                 </td>
-                
+
                 <td className="text-center px-4 py-3 text-gray-300">
                   {row.buyLimit}
                 </td>
-                
+
                 <td className="text-center px-4 py-3 text-gray-300">
                   {row.buyPrice}
                 </td>
-                
+
                 <td className="text-center px-4 py-3 text-gray-300">
                   {row.sellPrice}
                 </td>
-                
+
                 <td className={`text-center px-4 py-3 font-medium ${getMarginColor(row.margin)}`}>
                   {row.margin}
                 </td>
-                
+
                 <td className="text-center px-4 py-3 text-gray-300">
                   {row.dailyVolume}
                 </td>
-                
+
                 <td className="text-center px-4 py-3 text-gray-300">
                   {row.liquidityScore}
                 </td>
-                
+
                 <td className="text-center px-4 py-3 text-gray-300">
                   {row.volatilityScore}
                 </td>
