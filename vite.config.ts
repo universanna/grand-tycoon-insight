@@ -7,5 +7,8 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     base: isProd ? '/' : '/',
+    server: {
+      port: 8080
+    }
   }
 });
