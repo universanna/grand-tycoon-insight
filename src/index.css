@@ -1,18 +1,28 @@
-:root {
-  /* Design tokens */
-  --accent: 35 80% 45%; /* golden brown */
-  --accent-600: 35 85% 40%;
-  --text-dark: 222 25% 20%;
-  --bg-dark: 240 5% 14%;
+/* Fill viewport and remove default margins */
+html, body, #root {
+  height: 100%;
+  margin: 5%;
+}
 
+/* Base styles and design tokens */
+html {
+  /* Design tokens */
+  --accent: 35 80% 45%;        /* golden brown */
+  --accent-600: 35 85% 40%;
+  --text-light: 0 0% 100%;
+  --bg-dark: 240 5% 14%;       /* ~ #242424 */
+
+  /* Typography */
   font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light;
-  color: hsl(var(--text-dark));
-  background-color: hsl(40 12% 96%); /* locked light theme */
+  /* Theme - locked to dark */
+  color-scheme: dark;
+  color: hsl(var(--text-light));
+  background-color: hsl(var(--bg-dark));
 
+  /* Rendering tweaks */
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -29,7 +39,6 @@ a:hover {
 }
 
 body {
-  margin: 0;
   display: flex;
   place-items: center;
   min-width: 320px;
